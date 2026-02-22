@@ -5,7 +5,7 @@ import { useAuthStore } from '@/store/authStore';
 import { useTranslation } from 'react-i18next';
 
 export default function RegisterPage() {
-  const [form, setForm] = useState({ username: '', email: '', password: '' });
+  const [form, setForm] = useState({ username: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
   const { register, isLoading } = useAuthStore();
   const navigate = useNavigate();
@@ -19,11 +19,18 @@ export default function RegisterPage() {
     return regex.test(email);
   };
 
+  const passwordsMatch = form.confirmPassword === '' || form.password === form.confirmPassword;
+  const confirmDirty = form.confirmPassword !== '';
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     if (!isValidEmail(form.email)) {
       setError(t('auth.invalid_email'));
+      return;
+    }
+    if (form.password !== form.confirmPassword) {
+      setError(t('auth.passwords_no_match'));
       return;
     }
     try {
@@ -42,6 +49,10 @@ export default function RegisterPage() {
     }
   };
 
+  const isSubmitDisabled = () => {
+    return isLoading || (confirmDirty && !passwordsMatch);
+  };
+
   const renderError = () => {
     if (error) {
       return <div className="auth-error">{error}</div>;
@@ -58,9 +69,37 @@ export default function RegisterPage() {
     }
   };
 
+  const getConfirmBorderColor = () => {
+    if (confirmDirty && !passwordsMatch) {
+      return 'var(--red)';
+    } else if (confirmDirty && passwordsMatch) {
+      return 'var(--green)';
+    } else {
+      return undefined;
+    }
+  };
+
   const renderEmailHint = () => {
     if (form.email && !isValidEmail(form.email)) {
       return <span style={{ fontSize: '0.75rem', color: 'var(--red)' }}>{t('auth.invalid_email')}</span>;
+    } else {
+      return null;
+    }
+  };
+
+  const renderConfirmHint = () => {
+    if (confirmDirty && !passwordsMatch) {
+      return (
+        <span style={{ fontSize: '0.75rem', color: 'var(--red)' }}>
+          {t('auth.passwords_no_match')}
+        </span>
+      );
+    } else if (confirmDirty && passwordsMatch) {
+      return (
+        <span style={{ fontSize: '0.75rem', color: 'var(--green)' }}>
+          {t('auth.passwords_match')}
+        </span>
+      );
     } else {
       return null;
     }
@@ -125,8 +164,21 @@ export default function RegisterPage() {
               placeholder={t('auth.placeholder_password')}
             />
           </div>
+          <div className="auth-field">
+            <label>{t('auth.confirm_password')}</label>
+            <input
+              type="password"
+              value={form.confirmPassword}
+              onChange={set('confirmPassword')}
+              required
+              minLength={6}
+              placeholder={t('auth.placeholder_confirm_password')}
+              style={{ borderColor: getConfirmBorderColor() }}
+            />
+            {renderConfirmHint()}
+          </div>
           {renderError()}
-          <button type="submit" className="auth-submit" disabled={isLoading}>
+          <button type="submit" className="auth-submit" disabled={isSubmitDisabled()}>
             {getSubmitLabel()}
           </button>
         </form>

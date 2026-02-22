@@ -2,6 +2,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { BookOpen, Compass, Download, BarChart2, LogOut, Gamepad2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import BottomNav from '@/components/BottomNav';
 
 export default function Layout() {
   const { user, logout } = useAuthStore();
@@ -94,9 +95,12 @@ export default function Layout() {
           </button>
         </div>
       </aside>
+
       <main className="main-content">
         <Outlet />
       </main>
+
+      <BottomNav />
     </div>
   );
 }

@@ -25,7 +25,11 @@
     "register_error": "Error al crear la cuenta",
     "placeholder_username": "tunickname",
     "placeholder_email": "tu@email.com",
-    "placeholder_password": "Mínimo 6 caracteres"
+    "placeholder_password": "Mínimo 6 caracteres",
+    "confirm_password": "Repetir contraseña",
+    "placeholder_confirm_password": "Repite tu contraseña",
+    "passwords_no_match": "Las contraseñas no coinciden",
+    "passwords_match": "Las contraseñas coinciden"
   },
   "library": {
     "title": "Mi Biblioteca",
@@ -111,10 +115,10 @@
     "logout": "Cerrar sesión"
   },
   "status": {
-  "playing": "Jugando",
-  "completed": "Completado",
-  "dropped": "Abandonado",
-  "wishlist": "Lista de deseos",
-  "backlog": "Pendiente"
-}
+    "playing": "Jugando",
+    "completed": "Completado",
+    "dropped": "Abandonado",
+    "wishlist": "Lista de deseos",
+    "backlog": "Pendiente"
+  }
 }

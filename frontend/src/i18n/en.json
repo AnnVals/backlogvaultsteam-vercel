@@ -25,7 +25,11 @@
     "register_error": "Error creating account",
     "placeholder_username": "yournickname",
     "placeholder_email": "you@email.com",
-    "placeholder_password": "At least 6 characters"
+    "placeholder_password": "At least 6 characters",
+    "confirm_password": "Confirm password",
+    "placeholder_confirm_password": "Repeat your password",
+    "passwords_no_match": "Passwords do not match",
+    "passwords_match": "Passwords match"
   },
   "library": {
     "title": "My Library",
@@ -111,10 +115,10 @@
     "logout": "Log out"
   },
   "status": {
-  "playing": "Playing",
-  "completed": "Completed",
-  "dropped": "Dropped",
-  "wishlist": "Wishlist",
-  "backlog": "Backlog"
-}
+    "playing": "Playing",
+    "completed": "Completed",
+    "dropped": "Dropped",
+    "wishlist": "Wishlist",
+    "backlog": "Backlog"
+  }
 }
