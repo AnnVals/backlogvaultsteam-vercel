@@ -535,7 +535,7 @@ export default function LibraryPage() {
                         minHeight: '34px',
                         borderRadius: '50%',
                         background: getStatusBadgeBackground(entry.status) || 'rgba(20,20,35,0.85)',
-                        color: getStatusBadgeColor(entry.status) || '#fff',
+                        color: '#fffff',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
