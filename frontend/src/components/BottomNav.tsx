@@ -8,11 +8,11 @@ export default function BottomNav() {
   const { t, i18n } = useTranslation();
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setIsMobile(window.innerWidth <= 768);
+    const handler = () => setIsMobile(window.innerWidth <= 1024);
     window.addEventListener('resize', handler);
     return () => window.removeEventListener('resize', handler);
   }, []);
