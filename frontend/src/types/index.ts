@@ -105,13 +105,13 @@ export const PLATFORMS: {
 
 export const STATUS_CONFIG: Record<
   GameStatus,
-  { color: string; icon: ElementType; bg: string }
+  { color: string; icon: ElementType; bg: string; bgSolid: string }
 > = {
-  backlog:   { color: '#6366f1', icon: BookMarked,   bg: 'rgba(99,102,241,.85)'  },
-  playing:   { color: '#3b82f6', icon: Play,         bg: 'rgba(59,130,246,.85)'  },
-  completed: { color: '#22c55e', icon: CircleCheck,  bg: 'rgba(34,197,94,.85)'   },
-  wishlist:  { color: '#f59e0b', icon: Star,         bg: 'rgba(245,158,11,.85)'  },
-  dropped:   { color: '#ef4444', icon: XCircle,      bg: 'rgba(239,68,68,.85)'   },
+  backlog:   { color: '#6366f1', icon: BookMarked,   bg: 'rgba(99,102,241,.12)',  bgSolid: 'rgba(99,102,241,.85)'  },
+  playing:   { color: '#3b82f6', icon: Play,         bg: 'rgba(59,130,246,.12)',  bgSolid: 'rgba(59,130,246,.85)'  },
+  completed: { color: '#22c55e', icon: CircleCheck,  bg: 'rgba(34,197,94,.12)',   bgSolid: 'rgba(34,197,94,.85)'   },
+  wishlist:  { color: '#f59e0b', icon: Star,         bg: 'rgba(245,158,11,.12)',  bgSolid: 'rgba(245,158,11,.85)'  },
+  dropped:   { color: '#ef4444', icon: XCircle,      bg: 'rgba(239,68,68,.12)',   bgSolid: 'rgba(239,68,68,.85)'   },
 };
 
 export const SOURCE_CONFIG: Record<

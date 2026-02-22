@@ -262,7 +262,7 @@ export default function LibraryPage() {
 
   const getStatusBadgeBackground = (entryStatus: GameStatus | null) => {
     if (entryStatus) {
-      return STATUS_CONFIG[entryStatus]?.bg;
+      return STATUS_CONFIG[entryStatus]?.bgSolid;
     } else {
       return undefined;
     }
