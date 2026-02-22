@@ -1,0 +1,18 @@
+{
+  "name": "backlogvault",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "install:all": "cd frontend && npm install && cd ../backend && npm install",
+    "db:migrate": "cd backend && npm run db:migrate",
+    "docker:up": "docker-compose up -d"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "i18next": "^25.8.13",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "react-i18next": "^16.5.4"
+  }
+}
