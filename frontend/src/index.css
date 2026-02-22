@@ -1281,12 +1281,18 @@ code {
   border-radius: 10px;
   margin-bottom: 1rem;
   opacity: 0;
+  height: 0;              
+  overflow: hidden;       
+  padding: 0;             
   transform: translateY(-8px);
   pointer-events: none;
   transition: all 0.2s ease;
 }
+
 .bulk-bar.visible {
   opacity: 1;
+  height: auto;           
+  padding: 0.6rem 1rem;   
   transform: translateY(0);
   pointer-events: all;
 }
