@@ -109,5 +109,12 @@
   },
   "common": {
     "logout": "Log out"
-  }
+  },
+  "status": {
+  "playing": "Playing",
+  "completed": "Completed",
+  "dropped": "Dropped",
+  "wishlist": "Wishlist",
+  "backlog": "Backlog"
+}
 }

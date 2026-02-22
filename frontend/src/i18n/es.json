@@ -109,5 +109,12 @@
   },
   "common": {
     "logout": "Cerrar sesión"
-  }
+  },
+  "status": {
+  "playing": "Jugando",
+  "completed": "Completado",
+  "dropped": "Abandonado",
+  "wishlist": "Lista de deseos",
+  "backlog": "Pendiente"
+}
 }

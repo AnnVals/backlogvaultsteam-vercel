@@ -14,14 +14,7 @@ export default function StatsPage() {
   const { t, i18n } = useTranslation();
   const stats = data?.data;
 
-  const getStatusName = (status: string) => {
-    const config = STATUS_CONFIG[status as keyof typeof STATUS_CONFIG];
-    if (config) {
-      return config.label;
-    } else {
-      return status;
-    }
-  };
+  const getStatusName = (status: string) => t(`status.${status}`);
 
   const getStatusCount = (key: string) => {
     const count = stats?.games_by_status?.[key as keyof typeof stats.games_by_status] as number;
@@ -166,7 +159,7 @@ export default function StatsPage() {
                 <div key={key}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: 'var(--text2)' }}>
-                      <Icon size={13} style={{ color: cfg.color }} /> {cfg.label}
+                      <Icon size={13} style={{ color: cfg.color }} /> {t(`status.${key}`)}
                     </span>
                     <span style={{ fontSize: '0.78rem', color: 'var(--muted)' }}>{count + ' · ' + pct + '%'}</span>
                   </div>

@@ -159,7 +159,6 @@ GET /api/games/popular
 ```
 GET  /api/import/steam/preview/:steamId
 POST /api/import/steam           [JWT]
-POST /api/import/csv             [JWT]
 ```
 
 ### Stats

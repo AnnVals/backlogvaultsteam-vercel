@@ -105,19 +105,19 @@ export const PLATFORMS: {
 
 export const STATUS_CONFIG: Record<
   GameStatus,
-  { label: string; color: string; icon: ElementType; bg: string }
+  { color: string; icon: ElementType; bg: string }
 > = {
-  backlog:   { label: 'Pendiente',         color: '#6366f1', icon: BookMarked,   bg: 'rgba(99,102,241,.12)'  },
-  playing:   { label: 'Jugando',           color: '#3b82f6', icon: Play,         bg: 'rgba(59,130,246,.12)'  },
-  completed: { label: 'Completado',        color: '#22c55e', icon: CircleCheck,  bg: 'rgba(34,197,94,.12)'   },
-  wishlist:  { label: 'Lista de Deseados', color: '#f59e0b', icon: Star,         bg: 'rgba(245,158,11,.12)'  },
-  dropped:   { label: 'Abandonado',        color: '#ef4444', icon: XCircle,      bg: 'rgba(239,68,68,.12)'   },
+  backlog:   { color: '#6366f1', icon: BookMarked,   bg: 'rgba(99,102,241,.12)'  },
+  playing:   { color: '#3b82f6', icon: Play,         bg: 'rgba(59,130,246,.12)'  },
+  completed: { color: '#22c55e', icon: CircleCheck,  bg: 'rgba(34,197,94,.12)'   },
+  wishlist:  { color: '#f59e0b', icon: Star,         bg: 'rgba(245,158,11,.12)'  },
+  dropped:   { color: '#ef4444', icon: XCircle,      bg: 'rgba(239,68,68,.12)'   },
 };
 
 export const SOURCE_CONFIG: Record<
   GameSource,
-  { label: string; icon: ElementType; color: string }
+  { icon: ElementType; color: string }
 > = {
-  manual: { label: 'Manual', icon: PenLine,  color: '#aaa'    },
-  steam:  { label: 'Steam',  icon: Gamepad2, color: '#1b2838' },
+  manual: { icon: PenLine,  color: '#aaa'    },
+  steam:  { icon: Gamepad2, color: '#1b2838' },
 };

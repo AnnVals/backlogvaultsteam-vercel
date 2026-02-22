@@ -393,7 +393,7 @@ export default function LibraryPage() {
           <button key={s} className={getStatusFilterClass(s)} onClick={() => setStatus(s)}>
             {s ? (
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <StatusIcon status={s} /> {STATUS_CONFIG[s].label}
+                <StatusIcon status={s} /> {t(`status.${s}`)}
               </span>
             ) : t('library.all')}
           </button>
@@ -416,7 +416,7 @@ export default function LibraryPage() {
               onClick={() => bulkUpdate({ status: s })}
               style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}
             >
-              <StatusIcon status={s} /> {STATUS_CONFIG[s].label}
+              <StatusIcon status={s} /> {t(`status.${s}`)}
             </button>
           ))}
           <button
@@ -481,7 +481,7 @@ export default function LibraryPage() {
                           <button
                             key={s}
                             className="overlay-status-btn"
-                            title={STATUS_CONFIG[s].label}
+                            title={t(`status.${s}`)}
                             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             onClick={() =>
                               libraryApi.update(entry.id, { status: s })
@@ -569,7 +569,7 @@ export default function LibraryPage() {
                 >
                   <option value="">{t('library.no_status')}</option>
                   {(Object.keys(STATUS_CONFIG) as GameStatus[]).map(s => (
-                    <option key={s} value={s}>{STATUS_CONFIG[s].label}</option>
+                    <option key={s} value={s}>{t(`status.${s}`)}</option>
                   ))}
                 </select>
                 <span>{getHoursLabel(entry.hours_played)}</span>
