@@ -75,7 +75,7 @@
     "steam_subtitle": "Import your entire Steam library automatically",
     "public_warning": "Your Steam profile must be set to",
     "public": "Public",
-    "public_hint": "Go to Steam → Settings → Privacy → Game Details:",
+    "public_hint": "Go to your profile → Edit profile → Privacy Settings → My profile",
     "steam_id_label": "Steam ID or profile URL",
     "steam_placeholder": "https://steamcommunity.com/id/yournickname/ or 76561198...",
     "preview_btn": "Preview",

@@ -75,7 +75,7 @@
     "steam_subtitle": "Importa toda tu biblioteca de Steam automáticamente",
     "public_warning": "Tu perfil de Steam debe estar en",
     "public": "Público",
-    "public_hint": "Ve a Steam → Configuración → Privacidad → Datos de juego:",
+    "public_hint": "Ve a tu perfil → Modificar perfil → Ajustes de Privacidad → Mi perfil",
     "steam_id_label": "Steam ID o URL de perfil",
     "steam_placeholder": "https://steamcommunity.com/id/tunickname/ o 76561198...",
     "preview_btn": "Ver preview",

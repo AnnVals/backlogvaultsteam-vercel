@@ -1,12 +1,15 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Grid, List, Search, Trash2, Clock, Star } from 'lucide-react';
+import { Grid, List, Search, Trash2, Clock, Star, ChevronUp, ChevronDown, ChevronsUpDown } from 'lucide-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLibrary, useRemoveFromLibrary, useClearLibrary } from '@/hooks/useBacklogVault';
 import { libraryApi } from '@/services/api';
 import { PLATFORMS, STATUS_CONFIG, SOURCE_CONFIG, GameStatus, GameSource } from '@/types';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+
+type SortField = 'title' | 'platform' | 'status' | 'hours_played' | 'rating';
+type SortDir = 'asc' | 'desc';
 
 function StatusIcon({ status, size = 14 }: { status: GameStatus; size?: number }) {
   const Icon = STATUS_CONFIG[status].icon;
@@ -70,6 +73,16 @@ function StarRating({ value, onChange }: { value: number | null | undefined; onC
   );
 }
 
+function SortIcon({ field, sortField, sortDir }: { field: SortField; sortField: SortField; sortDir: SortDir }) {
+  if (sortField !== field) return <ChevronsUpDown size={12} style={{ opacity: 0.35 }} />;
+  return sortDir === 'asc'
+    ? <ChevronUp size={12} style={{ color: 'var(--accent, #7c6af7)' }} />
+    : <ChevronDown size={12} style={{ color: 'var(--accent, #7c6af7)' }} />;
+}
+
+const STATUS_ORDER: Record<string, number> = {};
+Object.keys(STATUS_CONFIG).forEach((k, i) => { STATUS_ORDER[k] = i; });
+
 export default function LibraryPage() {
   const [search, setSearch] = useState('');
   const [platform, setPlatform] = useState('');
@@ -78,12 +91,23 @@ export default function LibraryPage() {
   const [view, setView] = useState<'grid' | 'list'>('list');
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [confirmClear, setConfirmClear] = useState(false);
+  const [sortField, setSortField] = useState<SortField>('title');
+  const [sortDir, setSortDir] = useState<SortDir>('asc');
   const { t } = useTranslation();
 
   const queryClient = useQueryClient();
   const { data, isLoading } = useLibrary({ platform: platform || undefined, status: status || undefined });
   const { mutate: remove } = useRemoveFromLibrary();
   const { mutate: clearAll, isPending: isClearing } = useClearLibrary();
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDir(prev => (prev === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortField(field);
+      setSortDir('asc');
+    }
+  };
 
   const entries = useMemo(() => {
     const all = data?.data || [];
@@ -94,8 +118,31 @@ export default function LibraryPage() {
     if (source) {
       filtered = filtered.filter(e => e.source === source);
     }
-    return filtered.sort((a, b) => a.title.localeCompare(b.title));
-  }, [data, search, source]);
+
+    const sorted = [...filtered].sort((a, b) => {
+      let cmp = 0;
+      switch (sortField) {
+        case 'title':
+          cmp = a.title.localeCompare(b.title);
+          break;
+        case 'platform':
+          cmp = (a.platform || '').localeCompare(b.platform || '');
+          break;
+        case 'status':
+          cmp = (STATUS_ORDER[a.status ?? ''] ?? 99) - (STATUS_ORDER[b.status ?? ''] ?? 99);
+          break;
+        case 'hours_played':
+          cmp = (a.hours_played ?? 0) - (b.hours_played ?? 0);
+          break;
+        case 'rating':
+          cmp = (a.rating ?? 0) - (b.rating ?? 0);
+          break;
+      }
+      return sortDir === 'asc' ? cmp : -cmp;
+    });
+
+    return sorted;
+  }, [data, search, source, sortField, sortDir]);
 
   const toggleSelect = (id: string) => {
     const next = new Set(selected);
@@ -357,6 +404,17 @@ export default function LibraryPage() {
     }
   };
 
+  // Sortable column header helper
+  const SortHeader = ({ field, label }: { field: SortField; label: string }) => (
+    <span
+      onClick={() => handleSort(field)}
+      style={{ cursor: 'pointer', userSelect: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
+    >
+      {label}
+      <SortIcon field={field} sortField={sortField} sortDir={sortDir} />
+    </span>
+  );
+
   return (
     <div className="page">
       <div className="page-header">
@@ -464,16 +522,31 @@ export default function LibraryPage() {
                 </div>
                 <div className="card-img-wrap">
                   {getCardPlaceholder(entry.cover_url, entry.title)}
-                  <div
-                    className="status-badge-corner"
-                    style={{
-                      background: getStatusBadgeBackground(entry.status),
-                      color: getStatusBadgeColor(entry.status),
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}
-                  >
-                    {getStatusBadgeIcon(entry.status)}
-                  </div>
+                  {entry.status && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                        left: 'unset',
+                        width: '34px',
+                        height: '34px',
+                        minWidth: '34px',
+                        minHeight: '34px',
+                        borderRadius: '50%',
+                        background: getStatusBadgeBackground(entry.status) || 'rgba(20,20,35,0.85)',
+                        color: getStatusBadgeColor(entry.status) || '#fff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 2px 10px rgba(0,0,0,0.6), inset 0 0 0 1.5px rgba(255,255,255,0.1)',
+                        zIndex: 5,
+                        flexShrink: 0,
+                      }}
+                    >
+                      <StatusIcon status={entry.status} size={17} />
+                    </div>
+                  )}
                   {selected.size === 0 && (
                     <div className="card-overlay" onClick={e => e.stopPropagation()}>
                       <div className="overlay-status-row">
@@ -525,11 +598,11 @@ export default function LibraryPage() {
                 style={{ cursor: 'pointer' }}
               />
             </span>
-            <span>{t('library.game')}</span>
-            <span>{t('library.platform')}</span>
-            <span>{t('library.status')}</span>
-            <span>{t('library.hours')}</span>
-            <span>{t('library.score')}</span>
+            <span><SortHeader field="title" label={t('library.game')} /></span>
+            <span><SortHeader field="platform" label={t('library.platform')} /></span>
+            <span><SortHeader field="status" label={t('library.status')} /></span>
+            <span><SortHeader field="hours_played" label={t('library.hours')} /></span>
+            <span><SortHeader field="rating" label={t('library.score')} /></span>
             <span></span>
           </div>
           <AnimatePresence>
