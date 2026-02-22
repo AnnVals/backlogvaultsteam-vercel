@@ -3,7 +3,9 @@
     "library": "Mi Biblioteca",
     "import": "Importar",
     "explore": "Explorar",
-    "stats": "Estadísticas"
+    "stats": "Estadísticas",
+    "logout": "Cerrar sesión",
+    "profile": "Perfil"
   },
   "auth": {
     "welcome": "Bienvenido",
